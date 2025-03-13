@@ -1,6 +1,5 @@
 # import bibliothek random
 import random
-
 # create empty List
 rand_list_100 = []
 # cycle for that creates 0 to 100 cells
