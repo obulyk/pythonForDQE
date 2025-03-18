@@ -1,35 +1,38 @@
-from collections import defaultdict
 import random
 import string
 
-# random number from 2 to 10
-randomNumberOfList = random.randint(2, 10)
-dict = []
-my_list = []
-# create a dict with random letter and random int from 0 to 100
-for i in range(randomNumberOfList):
-    dict = {random.choice(string.ascii_lowercase): random.randint(0, 100),
-            random.choice(string.ascii_lowercase): random.randint(0, 100),
-            random.choice(string.ascii_lowercase): random.randint(0, 100)}
-    my_list.append(dict)
-# I will need that dictionary in a future
-commonDictionary = {}
-# defaultdict used to make default empty list
-res = defaultdict(list)
-# each dictionary {} in List
-for sub in my_list:
-    # Each key in dictionary
-    for key in sub:
-        res[key].append(sub[key])
-        # returns the value of the associated key
-        res.get(key)
-# printing result
-for key, value in res.items():
-    if len(value) > 1:
-        commonDictionary.update({key + str('_') +
-                                 str(value.index(max(value)) + 1): max(value)})
+# random generated dictionary
+dicts_number = random.randint(2, 10)
+dicts_list = []
+for _ in range(dicts_number):
+    keys_num = random.randint(1, 5)
+    random_dict = {
+        # create a dict with random letter and random int from 0 to 100
+        random.choice(string.ascii_lowercase): random.randint(1, 100)
+        for _ in (range(keys_num))
+    }
+    dicts_list.append(random_dict)
+# creating coomon dict to have the pair values for the same key
+common_dict = {}
+for index, sub in enumerate(dicts_list):
+    # Each key and value in dictionary
+    for key, value in sub.items():
+        if key not in common_dict:
+            common_dict[key] = []
+        # returns the value and index and adds to my common dicts
+        common_dict[key].append((value, index + 1))
+# Creating the result dict, where max value
+# is choosen and index for choosen value
+result = {}
+for key, values in common_dict.items():
+    # run if there is 2 pairs to compare near one letter
+    if len(values) > 1:
+        # Find the dictionary index with the max value for this key
+        max_value, max_index = max(values, key=lambda x: x[0])
+        # get the max value and its index
+        result[f"{key}_{max_index}"] = max_value
     else:
-        commonDictionary.update({key: max(value)})
+        result[key] = values[0][0]  # for single values, just add them as it is
 
-# common dict output
-print('Common dictionary:', commonDictionary)
+print('Generated dictionary:', dicts_list)
+print('Common dictionary:', result)
