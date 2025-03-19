@@ -23,7 +23,7 @@ while rand_list_100:
     srt_min_2_max.append(min)
     # remove that numb from list
     rand_list_100.remove(min)
-# empty list for even numbs
+
 e_numb = []
 # empty list for odd numbs
 o_numb = []
