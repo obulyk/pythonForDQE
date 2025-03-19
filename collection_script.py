@@ -2,29 +2,28 @@ import random
 import string
 
 # random generated dictionary
-dicts_number = random.randint(2, 10)
-dicts_list = []
-for _ in range(dicts_number):
+number_dictionaries = random.randint(2, 10)
+random_dictionary = []
+for _ in range(number_dictionaries):
     keys_num = random.randint(1, 5)
     random_dict = {
         # create a dict with random letter and random int from 0 to 100
         random.choice(string.ascii_lowercase): random.randint(1, 100)
         for _ in (range(keys_num))
     }
-    dicts_list.append(random_dict)
+    random_dictionary.append(random_dict)
 # creating coomon dict to have the pair values for the same key
-common_dict = {}
-for index, sub in enumerate(dicts_list):
-    # Each key and value in dictionary
+common_dictionary = {}
+for index, sub in enumerate(random_dictionary):
     for key, value in sub.items():
-        if key not in common_dict:
-            common_dict[key] = []
+        if key not in common_dictionary:
+            common_dictionary[key] = []
         # returns the value and index and adds to my common dicts
-        common_dict[key].append((value, index + 1))
+        common_dictionary[key].append((value, index + 1))
 # Creating the result dict, where max value
 # is choosen and index for choosen value
 result = {}
-for key, values in common_dict.items():
+for key, values in common_dictionary.items():
     # run if there is 2 pairs to compare near one letter
     if len(values) > 1:
         # Find the dictionary index with the max value for this key
@@ -34,5 +33,5 @@ for key, values in common_dict.items():
     else:
         result[key] = values[0][0]  # for single values, just add them as it is
 
-print('Generated dictionary:', dicts_list)
+print('Generated dictionary:', random_dictionary)
 print('Common dictionary:', result)
