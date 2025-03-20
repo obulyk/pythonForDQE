@@ -1,8 +1,5 @@
 import re
 
-from robot.utils import normalize
-
-global text
 text = """homEwork:
   tHis iz your homeWork, copy these Text to variable.
 
@@ -18,50 +15,31 @@ text = """homEwork:
 
   last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
 """
+paragraph = [sentence.strip().capitalize() for sentence in text.split('  ')]
+normalized_text = '. '.join(paragraph)
 
-countWhiteSpaces = 0
-global stringSentence
-
-def letterLowerCases(text):
-    global textLower
-    textLower = text.lower().replace('','').replace('\n','')
-    textLower = text.strip('\n\xa0 ').capitalize()
-    sentences = re.split(r'([.?!])', textLower)
-    sentences = [textLower for s in sentences]
-
-    #sentances = re.split(r'([.?:,])', textLower)
-    #textLower = re.sub(r'\s([:,.])', r'\1', textLower)
-   # normalized_sentance = [s.capitalize() for s in sentances]
-    #textLower = ''.join(sentences)
-    return sentences
-print(letterLowerCases(text))
-"""
-def lastWordsSentence(text):
-    letterLowerCases(text)
-    import re
-    sentence = ""
-    stringSentence = ""
-    wordsWithDots = re.findall(r'\w+\.', textLower)
-    for ele in wordsWithDots:
-        stringSentence += ele + ' '
-        sentence = stringSentence.lower().replace('.', '')
-    oneStr = textLower.format(sentence)
-    return oneStr
-
-print(lastWordsSentence(text))
-def missSpellingFixedText(func):
-    letterLowerCases(text)
-    for words in textLower:
-        ch_text = re.sub(r'\biz\b', 'is', textLower)
-    return (ch_text.replace('{}', ''))
-
-print(missSpellingFixedText(text))
-
-def findAllWhiteSpaces(t):
-    print(missSpellingFixedText(t))
-    t.lower()
-    whiteSpaces = re.findall(r'\s', t)
-    return print(whiteSpaces.__len__())
+normalized_text = re.sub(r'(\n\s*)', '\n', normalized_text)
 
 
-findAllWhiteSpaces(text)"""
+print(paragraph[2].capitalize())
+# # 1. Нормалізація: Перша літера кожного речення велика
+# normalized_text = '. '.join([sentence.strip().capitalize() for sentence in homework_text.split('. ')])
+# normalized_text = re.sub(r'(\n\s*)', '\n', normalized_text)  # Відновлюємо нові рядки
+#
+# # 2. Замінити "iZ" на "is", тільки коли це помилка
+# normalized_text = re.sub(r'\b(iZ)\b', 'is', normalized_text)
+#
+# # 3. Створити нове речення з останніх слів кожного існуючого речення
+# sentences = normalized_text.split('. ')
+# last_words = [sentence.split()[-1] for sentence in sentences if sentence]  # Останнє слово кожного речення
+# new_sentence = ' '.join(last_words) + '.'  # Створення нового речення з останніх слів
+#
+# # Додаємо нове речення до кінця
+# normalized_text += ' ' + new_sentence
+#
+# # 4. Порахувати кількість пробілів і всіх пробільних символів (whitespace)
+# whitespace_count = len(re.findall(r'\s', normalized_text))
+#
+# # Виведення результату
+# print(normalized_text)
+# print(f"Total number of whitespace characters: {whitespace_count}")
