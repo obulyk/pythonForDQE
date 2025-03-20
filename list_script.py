@@ -25,7 +25,6 @@ while rand_list_100:
     rand_list_100.remove(min)
 
 e_numb = []
-# empty list for odd numbs
 o_numb = []
 for e in srt_min_2_max:
     # if a numb is divided on 2 without any decimal numbs
