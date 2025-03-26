@@ -29,6 +29,5 @@ text = re.sub(r'(paragraph.)', r'\1 ' + new_sentence, normalized_text)
 normalized_text = re.sub(r'(?<!Fix“)iz(?!”)', 'is', text)
 
 whitespace_count = len(re.findall(r'\s', normalized_text))
-count = sum(1 for char in normalized_text if char in string.whitespace)
 
-print(normalized_text, '\n', count, whitespace_count)
+print(normalized_text, '\n', whitespace_count)
