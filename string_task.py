@@ -1,9 +1,7 @@
 import re
+import string
 
-from robot.utils import normalize
-
-global text
-text = """homEwork:
+homework_text = """homEwork:
   tHis iz your homeWork, copy these Text to variable.
 
 
@@ -16,52 +14,20 @@ text = """homEwork:
 
 
 
-  last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87.
-"""
+  last iz TO calculate nuMber OF Whitespace characteRS in this Tex. caREFULL, not only Spaces, but ALL whitespaces. I got 87."""
+paragraph = [sentence.strip().capitalize()
+             for sentence in homework_text.split('  ')]
+normalized_text = ' '.join(paragraph)
 
-countWhiteSpaces = 0
-global stringSentence
+normalized_text = re.sub(r'(^|(?<=\.\s))([a-z])',
+                         lambda m: m.group(1) + m.group(2).upper(),
+                         normalized_text)
+last_words = re.findall(r'(\b\w+\b)[.?!:]', normalized_text)
 
-def letterLowerCases(text):
-    global textLower
-    textLower = text.lower().replace('','').replace('\n','')
-    textLower = text.strip('\n\xa0 ').capitalize()
-    sentences = re.split(r'([.?!])', textLower)
-    sentences = [textLower for s in sentences]
+new_sentence = " ".join(last_words) + "."
+text = re.sub(r'(paragraph.)', r'\1 ' + new_sentence, normalized_text)
+normalized_text = re.sub(r'(?<!Fix“)iz(?!”)', 'is', text)
 
-    #sentances = re.split(r'([.?:,])', textLower)
-    #textLower = re.sub(r'\s([:,.])', r'\1', textLower)
-   # normalized_sentance = [s.capitalize() for s in sentances]
-    #textLower = ''.join(sentences)
-    return sentences
-print(letterLowerCases(text))
-"""
-def lastWordsSentence(text):
-    letterLowerCases(text)
-    import re
-    sentence = ""
-    stringSentence = ""
-    wordsWithDots = re.findall(r'\w+\.', textLower)
-    for ele in wordsWithDots:
-        stringSentence += ele + ' '
-        sentence = stringSentence.lower().replace('.', '')
-    oneStr = textLower.format(sentence)
-    return oneStr
+whitespace_count = len(re.findall(r'\s', normalized_text))
 
-print(lastWordsSentence(text))
-def missSpellingFixedText(func):
-    letterLowerCases(text)
-    for words in textLower:
-        ch_text = re.sub(r'\biz\b', 'is', textLower)
-    return (ch_text.replace('{}', ''))
-
-print(missSpellingFixedText(text))
-
-def findAllWhiteSpaces(t):
-    print(missSpellingFixedText(t))
-    t.lower()
-    whiteSpaces = re.findall(r'\s', t)
-    return print(whiteSpaces.__len__())
-
-
-findAllWhiteSpaces(text)"""
+print(normalized_text, '\n', whitespace_count)
