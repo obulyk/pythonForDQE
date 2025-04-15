@@ -23,9 +23,8 @@ new_sentence = " ".join(last_words) + "."
 text = re.sub(r'(paragraph.)', r'\1 ' + new_sentence, normalized_text)
 normalized_text = re.sub(r' iz ', ' is ', text)
 
-normalized_text = normalized_text.replace('\t',' ')
+normalized_text = normalized_text.replace('\t', ' ')
 
 whitespace_count = len(re.findall(r'\s+', normalized_text))
 
 print(normalized_text, '\n', whitespace_count)
-
