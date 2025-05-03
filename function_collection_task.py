@@ -1,7 +1,7 @@
 import random
 import string
 from typing import Dict
-v
+
 
 def get_random_size(min_val: int, max_val: int) -> int:
     return random.randint(min_val, max_val)
